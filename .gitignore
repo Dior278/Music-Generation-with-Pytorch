@@ -1,0 +1,21 @@
+# Fichiers et dossiers générés par Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environnements virtuels
+venv/
+*.venv/
+env/
+*.env
+
+# Fichiers de configuration d'éditeurs
+.vscode/
+.idea/
+
+# Fichiers générés par Jupyter Notebook
+.ipynb_checkpoints/
+
+# Fichiers téléchargés par le script
+*.sf2
