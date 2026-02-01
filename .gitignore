@@ -1,21 +1,77 @@
-# Fichiers et dossiers générés par Python
+# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Modèles et données
+*.pth
+*.pt
+*.ckpt
+*.h5
+*.pkl
+*.pickle
+best_model.pth
+models/
+checkpoints/
+
+# Logs
+*.log
+logs/
+music_generator.log
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
 
 # Environnements virtuels
 venv/
-*.venv/
 env/
-*.env
+ENV/
+.venv
 
-# Fichiers de configuration d'éditeurs
+# IDE
 .vscode/
 .idea/
+*.swp
+*.swo
+*~
 
-# Fichiers générés par Jupyter Notebook
-.ipynb_checkpoints/
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
 
-# Fichiers téléchargés par le script
-*.sf2
+# Fichiers temporaires
+*.tmp
+*.temp
+*.bak
+*.backup
+
+# Fichiers générés
+vocab.json
+*.mid
+*.abc
+output/
+generated/
+
+# Documentation temporaire (garder README.md)
+AMELIORATION_*.md
+GUIDE_*.md
+STRUCTURE_PROJET.md

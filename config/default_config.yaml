@@ -1,0 +1,70 @@
+# Configuration par défaut pour le générateur de musique AI
+
+# Chemins des fichiers
+paths:
+  model: "best_model.pth"
+  vocab: "vocab.json"
+  output: "outputs"
+
+# Configuration du modèle
+model:
+  embedding_dim: 256
+  hidden_dim: 512
+  num_layers: 3
+  dropout: 0.3
+
+# Configuration d'entraînement
+training:
+  epochs: 20
+  batch_size: 64
+  learning_rate: 0.001
+  seq_length: 100
+  train_split: 0.95
+  gradient_clip: 1.0
+  scheduler_patience: 2
+  scheduler_factor: 0.5
+
+# Configuration de génération
+generation:
+  default_temperature: 0.8
+  min_temperature: 0.3
+  max_temperature: 1.5
+  default_length: 400
+  min_length: 100
+  max_length: 800
+  default_key: "C"
+  default_meter: "4/4"
+  available_keys:
+    - "C"
+    - "D"
+    - "E"
+    - "F"
+    - "G"
+    - "A"
+    - "B"
+    - "Cm"
+    - "Dm"
+    - "Em"
+    - "Fm"
+    - "Gm"
+    - "Am"
+    - "Bm"
+  available_meters:
+    - "2/4"
+    - "3/4"
+    - "4/4"
+    - "6/8"
+
+# Configuration de l'interface
+interface:
+  server_name: "0.0.0.0"
+  server_port: 7860
+  share: false
+  theme: "soft"
+
+# Configuration du logging
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "music_generator.log"
+  console: true

@@ -1,0 +1,17 @@
+# Main dependencies
+torch>=2.0.0
+datasets>=2.14.0
+music21>=8.1.0
+matplotlib>=3.7.0
+tqdm>=4.65.0
+gradio>=4.0.0
+
+# Configuration and utilities
+pyyaml>=6.0
+numpy>=1.24.0
+
+# Development (optional)
+pytest>=7.4.0
+pytest-cov>=4.1.0
+black>=23.0.0
+flake8>=6.0.0
