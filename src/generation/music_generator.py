@@ -97,7 +97,7 @@ class MusicGenerator:
             else:
                 # Fallback to config
                 model_config = self.config.get("model", {})
-                embedding_dim = model_config.get("embedding_dim", 256)
+                embedding_dim = model_config.get("embedding_dim", 128)
             
             # Detect hidden_dim from LSTM weights
             # LSTM weight_ih shape: (4*hidden_dim, embedding_dim)
@@ -107,7 +107,7 @@ class MusicGenerator:
             else:
                 # Fallback to config
                 model_config = self.config.get("model", {})
-                hidden_dim = model_config.get("hidden_dim", 512)
+                hidden_dim = model_config.get("hidden_dim", 256)
             
             # Detect num_layers by counting LSTM layers
             num_layers = 0
@@ -116,13 +116,13 @@ class MusicGenerator:
                     try:
                         layer_num = int(key.split('_l')[1].split('_')[0])
                         num_layers = max(num_layers, layer_num + 1)
-                    except:
+                    except (ValueError, IndexError):
                         pass
             
             if num_layers == 0:
                 # Fallback to config
                 model_config = self.config.get("model", {})
-                num_layers = model_config.get("num_layers", 3)
+                num_layers = model_config.get("num_layers", 2)
             
             # Dropout from config (difficult to detect from weights)
             model_config = self.config.get("model", {})
@@ -325,7 +325,6 @@ class MusicGenerator:
                     cleaned_lines.append(line)
                     seen_header.add(key)
             else:
-                # Music line
                 cleaned_lines.append(line)
         
         return '\n'.join(cleaned_lines)

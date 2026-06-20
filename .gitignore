@@ -1,5 +1,6 @@
 # Python
 __pycache__/
+.pytest_cache/
 *.py[cod]
 *$py.class
 *.so
@@ -28,7 +29,7 @@ wheels/
 *.pkl
 *.pickle
 best_model.pth
-models/
+/models/
 checkpoints/
 
 # Logs
@@ -70,8 +71,3 @@ vocab.json
 *.abc
 output/
 generated/
-
-# Documentation temporaire (garder README.md)
-AMELIORATION_*.md
-GUIDE_*.md
-STRUCTURE_PROJET.md

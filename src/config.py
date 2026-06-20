@@ -20,22 +20,24 @@ class Config:
     DEFAULT_VOCAB_PATH = "vocab.json"
     DEFAULT_OUTPUT_DIR = "outputs"
     
-    # Paramètres du modèle
+    # Paramètres du modèle (optimisés CPU, alignés avec le notebook)
     MODEL_CONFIG = {
-        "embedding_dim": 256,
-        "hidden_dim": 512,
-        "num_layers": 3,
+        "embedding_dim": 128,
+        "hidden_dim": 256,
+        "num_layers": 2,
         "dropout": 0.3,
     }
     
     # Paramètres d'entraînement
     TRAINING_CONFIG = {
-        "epochs": 20,
-        "batch_size": 64,
+        "epochs": 12,
+        "batch_size": 128,
         "learning_rate": 0.001,
-        "seq_length": 100,
+        "seq_length": 64,
+        "dataset_fraction": 0.4,
         "train_split": 0.95,
         "gradient_clip": 1.0,
+        "early_stopping_patience": 3,
         "scheduler_patience": 2,
         "scheduler_factor": 0.5,
     }
@@ -201,6 +203,12 @@ class Config:
 _config_instance: Optional[Config] = None
 
 
+def _default_config_path() -> Optional[str]:
+    """Retourne le chemin vers default_config.yaml s'il existe."""
+    config_file = Path(__file__).resolve().parent.parent / "config" / "default_config.yaml"
+    return str(config_file) if config_file.exists() else None
+
+
 def get_config(config_path: Optional[str] = None) -> Config:
     """
     Récupère l'instance globale de configuration.
@@ -214,6 +222,8 @@ def get_config(config_path: Optional[str] = None) -> Config:
     global _config_instance
     
     if _config_instance is None:
+        if config_path is None:
+            config_path = _default_config_path()
         _config_instance = Config(config_path)
     
     return _config_instance

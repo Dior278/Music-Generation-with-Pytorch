@@ -1,10 +1,5 @@
-"""
-Module de génération de musique.
-
-Ce module contient la logique principale pour générer de la musique
-en utilisant le modèle entraîné.
-"""
+"""Module de génération de musique."""
 
 from .music_generator import MusicGenerator
 
-__all__ = ['MusicGenerator']
+__all__ = ["MusicGenerator"]

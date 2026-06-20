@@ -1,30 +1,29 @@
 # Configuration par défaut pour le générateur de musique AI
 
-# Chemins des fichiers
 paths:
   model: "best_model.pth"
   vocab: "vocab.json"
   output: "outputs"
 
-# Configuration du modèle
+# Architecture CPU (alignée avec Music_Generation.ipynb)
 model:
-  embedding_dim: 256
-  hidden_dim: 512
-  num_layers: 3
+  embedding_dim: 128
+  hidden_dim: 256
+  num_layers: 2
   dropout: 0.3
 
-# Configuration d'entraînement
 training:
-  epochs: 20
-  batch_size: 64
+  epochs: 12
+  batch_size: 128
   learning_rate: 0.001
-  seq_length: 100
+  seq_length: 64
+  dataset_fraction: 0.4
   train_split: 0.95
   gradient_clip: 1.0
+  early_stopping_patience: 3
   scheduler_patience: 2
   scheduler_factor: 0.5
 
-# Configuration de génération
 generation:
   default_temperature: 0.8
   min_temperature: 0.3
@@ -55,14 +54,12 @@ generation:
     - "4/4"
     - "6/8"
 
-# Configuration de l'interface
 interface:
   server_name: "0.0.0.0"
   server_port: 7860
   share: false
   theme: "soft"
 
-# Configuration du logging
 logging:
   level: "INFO"
   format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"

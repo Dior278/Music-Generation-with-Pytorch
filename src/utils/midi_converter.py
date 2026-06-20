@@ -6,8 +6,8 @@ using the music21 library.
 """
 
 from pathlib import Path
-from typing import Optional, Union
-from music21 import converter, stream
+from typing import Union
+from music21 import converter
 import logging
 
 logger = logging.getLogger(__name__)
@@ -132,35 +132,3 @@ def abc_to_midi(abc_text: str, output_filename: Union[str, Path]) -> bool:
         logger.debug(traceback.format_exc())
         return False
 
-
-def midi_to_abc(midi_file: Union[str, Path], output_filename: Optional[Union[str, Path]] = None) -> Optional[str]:
-    """
-    Convertit un fichier MIDI en notation ABC.
-    
-    Args:
-        midi_file: Chemin vers le fichier MIDI
-        output_filename: Chemin du fichier ABC de sortie (optionnel)
-    
-    Returns:
-        Notation ABC sous forme de chaîne, ou None en cas d'erreur
-    """
-    try:
-        # Parser le fichier MIDI
-        score = converter.parse(str(midi_file))
-        
-        # Convertir en ABC
-        abc_text = score.write('abc')
-        
-        # Sauvegarder si un fichier de sortie est spécifié
-        if output_filename:
-            output_path = Path(output_filename)
-            output_path.parent.mkdir(parents=True, exist_ok=True)
-            with open(output_path, 'w', encoding='utf-8') as f:
-                f.write(abc_text)
-            logger.info(f"Conversion MIDI -> ABC réussie: {output_filename}")
-        
-        return abc_text
-        
-    except Exception as e:
-        logger.error(f"Erreur lors de la conversion MIDI -> ABC: {e}")
-        return None
