@@ -56,6 +56,15 @@ class Config:
                           "Cm", "Dm", "Em", "Fm", "Gm", "Am", "Bm"],
         "available_meters": ["2/4", "3/4", "4/4", "6/8"],
     }
+
+    # MusicGen pretrained
+    AUDIO_CONFIG = {
+        "model_id": "facebook/musicgen-small",
+        "default_duration": 8,
+        "min_duration": 5,
+        "max_duration": 15,
+        "device": "auto",
+    }
     
     # Paramètres de l'interface
     INTERFACE_CONFIG = {
@@ -92,6 +101,7 @@ class Config:
             "model": self.MODEL_CONFIG.copy(),
             "training": self.TRAINING_CONFIG.copy(),
             "generation": self.GENERATION_CONFIG.copy(),
+            "audio": self.AUDIO_CONFIG.copy(),
             "interface": self.INTERFACE_CONFIG.copy(),
             "logging": self.LOGGING_CONFIG.copy(),
             "paths": {

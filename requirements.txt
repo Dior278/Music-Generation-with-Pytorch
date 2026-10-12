@@ -1,14 +1,16 @@
-# Main dependencies
+# Core
 torch>=2.0.0
 datasets>=2.14.0
 music21>=8.1.0
 matplotlib>=3.7.0
 tqdm>=4.65.0
 gradio>=4.0.0
-
-# Configuration and utilities
-pyyaml>=6.0
 numpy>=1.24.0
+pyyaml>=6.0
+
+# Audio backend (MusicGen)
+transformers>=4.31.0
+scipy>=1.10.0
 
 # Tests
 pytest>=7.4.0

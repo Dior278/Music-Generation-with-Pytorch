@@ -1,6 +1,7 @@
 # Python
 __pycache__/
 .pytest_cache/
+tests/_tmp_backend_out/
 *.py[cod]
 *$py.class
 *.so
@@ -69,5 +70,8 @@ desktop.ini
 vocab.json
 *.mid
 *.abc
+*.wav
 output/
+outputs/
 generated/
+lstm_weights.zip

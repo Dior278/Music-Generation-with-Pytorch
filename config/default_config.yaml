@@ -54,6 +54,14 @@ generation:
     - "4/4"
     - "6/8"
 
+# MusicGen pretrained (no local training)
+audio:
+  model_id: "facebook/musicgen-small"
+  default_duration: 8
+  min_duration: 5
+  max_duration: 15
+  device: "auto"
+
 interface:
   server_name: "0.0.0.0"
   server_port: 7860
