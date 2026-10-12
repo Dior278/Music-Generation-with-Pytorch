@@ -30,11 +30,11 @@ class Config:
     
     # Paramètres d'entraînement
     TRAINING_CONFIG = {
-        "epochs": 12,
-        "batch_size": 128,
+        "epochs": 10,
+        "batch_size": 256,
         "learning_rate": 0.001,
         "seq_length": 64,
-        "dataset_fraction": 0.4,
+        "dataset_fraction": 0.3,
         "train_split": 0.95,
         "gradient_clip": 1.0,
         "early_stopping_patience": 3,

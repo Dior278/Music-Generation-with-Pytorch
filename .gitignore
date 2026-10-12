@@ -75,3 +75,5 @@ output/
 outputs/
 generated/
 lstm_weights.zip
+training.log
+*.pth.bak

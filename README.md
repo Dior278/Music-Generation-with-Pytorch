@@ -27,13 +27,14 @@ Puis ouvrez [http://localhost:7860](http://localhost:7860).
 2. Exécutez toutes les cellules — le dataset Hugging Face se télécharge tout seul.
 3. Téléchargez `lstm_weights.zip`, extrayez `best_model.pth` + `vocab.json` à la racine du projet.
 
-### CPU local
+### CPU local (recommandé sur cette machine)
 
 ```bash
-jupyter notebook notebooks/train_lstm_local.ipynb
+python train_lstm.py
 ```
 
-Environ 2–4 h sur un CPU moderne (40 % du dataset).
+Utilise `config/default_config.yaml` (60 % du dataset par défaut). Journal : `training.log`.  
+Alternative notebook : `notebooks/train_lstm_local.ipynb`.
 
 ## Configuration
 
