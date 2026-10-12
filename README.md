@@ -1,63 +1,56 @@
 # Dual-Engine Music Generator
 
-Générateur de musique à **deux moteurs** :
+Deux moteurs, une interface (**Studio**) :
 
-| Mode | Technologie | Sortie | Entraînement |
-|------|-------------|--------|--------------|
-| **Audio** | MusicGen-small (préentraîné, Hugging Face) | WAV | Aucun — téléchargé au premier usage |
-| **MIDI** | LSTM caractère-par-caractère sur notation ABC | ABC + MIDI | Vous entraînez (Colab GPU ou CPU local) |
+| Onglet | Moteur | Entrée | Sortie |
+|--------|--------|--------|--------|
+| **Audio** | MusicGen-small (préentraîné) | Texte en anglais | WAV |
+| **MIDI** | LSTM (entraîné par vous) | Tonalité / mesure / seed ABC | ABC + MIDI |
 
-## Installation
+## Démarrage rapide
 
 ```bash
 pip install -r requirements.txt
-```
-
-## Lancer l'interface
-
-```bash
 python app.py
 ```
 
-Ouvrez `http://localhost:7860`.
+Puis ouvrez [http://localhost:7860](http://localhost:7860).
 
-- Onglet **Audio** : décrivez la musique en anglais (ex. `calm piano melody with soft strings`). Premier lancement = téléchargement de MusicGen (~1–2 Go). Sur CPU, préférez 5–10 secondes.
-- Onglet **MIDI** : nécessite `best_model.pth` + `vocab.json` à la racine (voir ci-dessous).
+1. **Audio** — prêt immédiatement. Premier run : téléchargement MusicGen (~1–2 Go). Sur CPU, préférez 5–10 secondes.
+2. **MIDI** — placez `best_model.pth` et `vocab.json` à la racine (voir entraînement ci-dessous).
 
-## Entraîner le LSTM (piste MIDI)
+## Entraîner le LSTM
 
-### Option recommandée : Google Colab (GPU)
+### Google Colab (recommandé)
 
-1. Ouvrez [`notebooks/train_lstm_colab.ipynb`](notebooks/train_lstm_colab.ipynb) dans Colab (Runtime → GPU).
-2. Exécutez toutes les cellules. Le dataset Hugging Face se télécharge tout seul.
-3. Téléchargez `lstm_weights.zip` (`best_model.pth` + `vocab.json`).
-4. Placez les deux fichiers à la racine de ce dépôt.
+1. Ouvrez [`notebooks/train_lstm_colab.ipynb`](notebooks/train_lstm_colab.ipynb) (Runtime → GPU).
+2. Exécutez toutes les cellules — le dataset Hugging Face se télécharge tout seul.
+3. Téléchargez `lstm_weights.zip`, extrayez `best_model.pth` + `vocab.json` à la racine du projet.
 
-### Option locale (CPU)
+### CPU local
 
 ```bash
-jupyter notebook Music_Generation.ipynb
+jupyter notebook notebooks/train_lstm_local.ipynb
 ```
 
-Entraînement typique : 2–4 h sur CPU moderne (40 % du dataset).
+Environ 2–4 h sur un CPU moderne (40 % du dataset).
 
 ## Configuration
 
-[`config/default_config.yaml`](config/default_config.yaml) — chemins, hyperparamètres LSTM, durée MusicGen, ports Gradio.
+[`config/default_config.yaml`](config/default_config.yaml) — durée MusicGen, hyperparamètres LSTM, chemins, port Gradio.
 
 ## Structure
 
 ```
-├── app.py                         # Interface Gradio duale
-├── Music_Generation.ipynb         # Entraînement LSTM local
-├── notebooks/train_lstm_colab.ipynb
-├── config/default_config.yaml
-├── src/
-│   ├── backends/                  # MusicGen + LSTM
-│   ├── generation/
-│   ├── models/
-│   └── utils/
-└── tests/
+app.py                          # Interface Studio (Gradio)
+config/default_config.yaml
+notebooks/
+  train_lstm_colab.ipynb        # Entraînement GPU Colab
+  train_lstm_local.ipynb        # Entraînement CPU local
+src/
+  backends/                     # MusicGen + LSTM
+  generation/ models/ utils/
+tests/
 ```
 
 ## Tests
@@ -66,10 +59,8 @@ Entraînement typique : 2–4 h sur CPU moderne (40 % du dataset).
 pytest
 ```
 
-Les tests mockent MusicGen (aucun téléchargement Hugging Face en CI).
-
 ## Licence
 
 MIT — voir [LICENSE](LICENSE).
 
-MusicGen (Meta) est fourni sous sa propre licence non commerciale pour certains usages ; vérifiez les conditions Hugging Face avant un déploiement commercial.
+MusicGen (Meta) a ses propres conditions d’usage ; vérifiez-les avant un usage commercial.

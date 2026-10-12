@@ -62,7 +62,3 @@ def setup_logging(config_path: Optional[str] = None) -> logging.Logger:
         root_logger.addHandler(file_handler)
     
     return root_logger
-
-
-# Configuration automatique au chargement du module
-setup_logging()

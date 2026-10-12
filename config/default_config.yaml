@@ -5,7 +5,7 @@ paths:
   vocab: "vocab.json"
   output: "outputs"
 
-# Architecture CPU (alignée avec Music_Generation.ipynb)
+# Architecture LSTM (alignée avec notebooks/train_lstm_*.ipynb)
 model:
   embedding_dim: 128
   hidden_dim: 256
@@ -66,7 +66,6 @@ interface:
   server_name: "0.0.0.0"
   server_port: 7860
   share: false
-  theme: "soft"
 
 logging:
   level: "INFO"

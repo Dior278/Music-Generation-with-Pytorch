@@ -71,7 +71,6 @@ class Config:
         "server_name": "0.0.0.0",
         "server_port": 7860,
         "share": False,
-        "theme": "soft",
     }
     
     # Paramètres de logging
