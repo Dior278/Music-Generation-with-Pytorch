@@ -283,17 +283,22 @@ class MusicGenerator:
         except Exception as e:
             logger.warning(f"Unable to add chords: {e}")
         
-        # Validate and clean to ensure MIDI conversion
+        # Force MIDI-ready ABC (headers + notes + music21 parse check)
         try:
-            from src.utils.abc_validator import clean_abc_for_midi, validate_abc_for_midi
-            is_valid, error_msg = validate_abc_for_midi(generated_text)
-            if not is_valid:
-                logger.warning(f"Invalid ABC detected: {error_msg}, cleaning...")
-            generated_text = clean_abc_for_midi(generated_text)
-            logger.info("ABC notation validated and cleaned for MIDI conversion")
+            from src.utils.abc_validator import ensure_midi_ready_abc
+
+            generated_text, ok, err = ensure_midi_ready_abc(
+                generated_text,
+                default_key=key,
+                default_meter=meter,
+            )
+            if not ok:
+                logger.warning("ABC still not MIDI-ready after repair: %s", err)
+            else:
+                logger.info("ABC notation verified for MIDI conversion")
         except Exception as e:
             logger.warning(f"Error during ABC validation: {e}")
-        
+
         return generated_text
     
     def _clean_abc_output(self, abc_text: str) -> str:

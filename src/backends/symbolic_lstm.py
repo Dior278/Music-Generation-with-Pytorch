@@ -10,6 +10,7 @@ from typing import Optional
 
 from src.backends.base import GenerationResult
 from src.config import get_config
+from src.utils.abc_validator import ensure_midi_ready_abc
 from src.utils.midi_converter import abc_to_midi
 
 logger = logging.getLogger(__name__)
@@ -88,6 +89,12 @@ class SymbolicLSTMBackend:
                 message=f"Erreur lors de la génération : {exc}",
             )
 
+        abc_text, midi_ready, prep_err = ensure_midi_ready_abc(
+            abc_text, default_key=key, default_meter=meter
+        )
+        if not midi_ready:
+            logger.warning("ABC preparation failed: %s", prep_err)
+
         stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         midi_path = self.output_dir / f"lstm_{stamp}.mid"
         abc_path = self.output_dir / f"lstm_{stamp}.abc"
@@ -96,27 +103,30 @@ class SymbolicLSTMBackend:
             f.write(abc_text)
 
         if not abc_to_midi(abc_text, midi_path):
-            # Fallback temp file for Gradio if write to outputs fails
             tmp = tempfile.NamedTemporaryFile(delete=False, suffix=".mid")
             tmp.close()
             if abc_to_midi(abc_text, tmp.name):
                 return GenerationResult(
                     mode="symbolic",
-                    message="Musique générée (MIDI temporaire).",
+                    message="Musique générée (MIDI temporaire, format ABC corrigé).",
                     abc_text=abc_text,
                     midi_path=tmp.name,
-                    metadata={"abc_path": str(abc_path)},
+                    metadata={"abc_path": str(abc_path), "midi_ready": midi_ready},
                 )
             return GenerationResult(
                 mode="symbolic",
-                message="Musique générée, mais la conversion MIDI a échoué.",
+                message="ABC généré mais conversion MIDI impossible même après correction.",
                 abc_text=abc_text,
+                metadata={"midi_ready": False, "error": prep_err},
             )
 
+        status = f"Musique générée — {midi_path.name}"
+        if midi_ready:
+            status += " (format ABC vérifié)"
         return GenerationResult(
             mode="symbolic",
-            message=f"Musique générée — {midi_path.name}",
+            message=status,
             abc_text=abc_text,
             midi_path=str(midi_path),
-            metadata={"abc_path": str(abc_path)},
+            metadata={"abc_path": str(abc_path), "midi_ready": midi_ready},
         )
